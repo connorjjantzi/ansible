@@ -1,0 +1,48 @@
+- name: Neovim setup
+  tags:
+    - install
+    - nvim
+  block:
+    - name: Install neovim package
+      become: true
+      pacman:
+        name: neovim
+
+    - name: Install packages for LazyVim
+      become: true
+      pacman:
+        name:
+          - ttf-jetbrains-mono-nerd
+          - lazygit
+          - ripgrep
+          - fd
+          - fzf
+          - bat
+          - git-delta
+          - chafa
+          - viu
+          - openslide
+          - poppler-glib
+          - wget
+          - unzip
+          - xdg-utils
+          # - wl-clipboard
+          - lua51
+          - python-pipenv
+          - python-pynvim
+
+    - name: Install ueberzugpp
+      kewlfft.aur.aur:
+        name: ueberzugpp
+        use: yay
+        state: present
+
+    - name: Install languages for Mason
+      become: true
+      pacman:
+        name:
+          - luarocks
+          - composer
+          - php
+          - jdk-openjdk
+          - julia

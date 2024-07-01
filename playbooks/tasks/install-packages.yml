@@ -1,0 +1,12 @@
+- name: Install other packages
+  tags:
+    - install
+    - packages
+  block:
+    - name: Install packages
+      become: true
+      pacman:
+        name:
+          - discord
+          - kitty
+          - firefox

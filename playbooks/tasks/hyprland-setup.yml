@@ -1,0 +1,7 @@
+- name: Install Hyde Cli
+  kewlfft.aur.aur:
+    name: hyde-cli-git
+    use: yay
+    state: present
+  tags:
+    - hyprland

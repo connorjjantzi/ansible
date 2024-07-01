@@ -1,0 +1,24 @@
+- name: Zsh setup
+  tags:
+    - install
+    - productivity
+    - dotfiles
+    - zsh
+  block:
+    - name: Install ZSH
+      become: true
+      pacman:
+        name: zsh
+
+    - name: Install Oh My Posh
+      kewlfft.aur.aur:
+        name: oh-my-posh
+        use: yay
+        state: present
+
+    - name: Change shell to zsh
+      become: true
+      ansible.builtin.user:
+        name: "{{ ansible_user_id }}"
+        shell: /bin/zsh
+      when: ansible_user_id != "root"

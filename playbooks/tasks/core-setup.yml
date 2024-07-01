@@ -1,0 +1,44 @@
+- name: Core arch setup
+  tags:
+    - install
+    - arch
+  block:
+    - name: Create work, personal, and school directories
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        mode: "0755"
+        owner: "{{ ansible_user_id }}"
+        group: "{{ ansible_user_id }}"
+      loop:
+        - /home/{{ ansible_user_id }}/work
+        - /home/{{ ansible_user_id }}/personal
+        - /home/{{ ansible_user_id }}/school
+
+    - name: Enable colors for pacman
+      become: true
+      ansible.builtin.lineinfile:
+        path: /etc/pacman.conf
+        regexp: "#Color"
+        line: "Color"
+
+    - name: Enable check space for pacman
+      become: true
+      ansible.builtin.lineinfile:
+        path: /etc/pacman.conf
+        regexp: "#CheckSpace"
+        line: "CheckSpace"
+
+    - name: Add ILoveCandy option to pacman
+      become: true
+      ansible.builtin.lineinfile:
+        path: /etc/pacman.conf
+        insertafter: "Color"
+        line: "ILoveCandy"
+
+    - name: Comment out NoProgressBar
+      become: true
+      ansible.builtin.lineinfile:
+        path: /etc/pacman.conf
+        regexp: "NoProgressBar"
+        line: "#NoProgressBar"

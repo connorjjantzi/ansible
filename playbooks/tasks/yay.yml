@@ -1,0 +1,35 @@
+- name: Yay setup
+  tags:
+    - install
+    - yay
+    - nvim
+    - node
+    - zsh
+    - hyprland
+  block:
+    - name: Install base-devel and git if needed
+      become: true
+      pacman:
+        update_cache: true
+        name:
+          - base-devel
+          - git
+        extra_args: --needed
+
+    - name: Clone yay repo
+      ansible.builtin.git:
+        repo: https://aur.archlinux.org/yay.git
+        dest: /tmp/yay
+        update: true
+        version: master
+
+    - name: Install yay
+      kewlfft.aur.aur:
+        name: yay
+        use: makepkg
+        local_pkgbuild: /tmp/yay
+
+    # - name: Ensure yay updates develeopment packages
+    #   ansible.builtin.shell: |
+    #     yay -Y --gendb
+    #     yay -Y --devel --save

@@ -1,0 +1,21 @@
+- name: Dotfiles setup
+  tags:
+    - install
+    - dotfiles
+  block:
+    - name: Installing stow
+      become: true
+      pacman:
+        name: stow
+
+    - name: Cloning .dotfiles
+      ansible.builtin.git:
+        repo: "git@github.com:connorjjantzi/dotfiles.git"
+        dest: "{{ ansible_env.HOME }}/.dotfiles"
+        recursive: true
+        update: false
+        accept_hostkey: true
+        version: main
+
+    - name: Stow dotfiles
+      ansible.builtin.shell: cd $HOME/.dotfiles && stow kitty nvim ohmyposh scripts tmux zsh spicetify

@@ -1,0 +1,102 @@
+- name: Spotfiy and spicetify setup
+  tags:
+    - install
+    - spotify
+  block:
+    - name: Install spotify launcher and temporary xorg server
+      become: true
+      pacman:
+        name:
+          - spotify-launcher
+          - xorg-server-xvfb
+        state: present
+
+    - name: Enable wayland for spotify
+      become: true
+      ansible.builtin.lineinfile:
+        path: /etc/spotify-launcher.conf
+        regexp: "^platform=wayland$"
+        line: 'extra_arguments = ["--enable-features=UseOzonePlatform", "--ozone-platform=wayland"]'
+
+    - name: Install spicetify-cli
+      kewlfft.aur.aur:
+        name: spicetify-cli
+        state: present
+
+    - name: Run spotify-launcher to install spotify
+      ansible.builtin.shell: |
+        Xvfb :99 -screen 0 1024x768x24 &
+        export DISPLAY=:99
+        /usr/bin/spotify-launcher
+      args:
+        creates: "{{ ansible_env.HOME }}/.local/share/spotify-launcher"
+      failed_when: false
+
+    - name: Uninstall xorg-server-xvfb
+      become: true
+      pacman:
+        name: xorg-server-xvfb
+        state: absent
+
+    - name: Create spicetify default config
+      ansible.builtin.shell: |
+        spicetify
+      args:
+        creates: "{{ ansible_env.HOME }}/.config/spicetify/config-xpuui.ini"
+
+    - name: Set spotify_path for spicetify
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_env.HOME }}/.config/spicetify/config-xpui.ini"
+        regexp: "spotify_path.*"
+        line: "spotify_path           = $HOME/.local/share/spotify-launcher/install/usr/share/spotify/"
+
+    - name: Make marketplace directory
+      ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/.config/spicetify/CustomApps/marketplace"
+        state: directory
+        mode: "0755"
+
+    - name: Fetch the latest release info from GitHub
+      ansible.builtin.uri:
+        url: https://api.github.com/repos/spicetify/marketplace/releases/latest
+        return_content: true
+      register: release_info
+
+    - name: Extract the URL of the latest release asset
+      ansible.builtin.set_fact:
+        latest_release_url: "{{ release_info.json.assets[0].browser_download_url }}"
+
+    - name: Download the latest release
+      ansible.builtin.get_url:
+        url: "{{ latest_release_url }}"
+        dest: "{{ ansible_env.HOME }}/.config/spicetify/CustomApps/marketplace"
+        mode: "0755"
+
+    - name: Unzip the latest release
+      ansible.builtin.unarchive:
+        src: "{{ ansible_env.HOME }}/.config/spicetify/CustomApps/marketplace/marketplace.zip"
+        dest: "{{ ansible_env.HOME }}/.config/spicetify/CustomApps/marketplace"
+        remote_src: true
+        mode: "0755"
+
+    - name: Remove the zip file
+      ansible.builtin.file:
+        path: "{{ ansible_env.HOME }}/.config/spicetify/CustomApps/marketplace/marketplace.zip"
+        state: absent
+
+    - name: Set some kernel parameters
+      ansible.builtin.lineinfile:
+        path: "{{ ansible_env.HOME }}/.config/spicetify/config-xpui.ini"
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+      loop:
+        - {
+            regexp: "custom_apps.*",
+            line: "custom_apps           = marketplace|lyrics-plus",
+          }
+        - {
+            regexp: "current_theme.*",
+            line: "current_theme          = marketplace",
+          }
+        - { regexp: "replace_colors.*", line: "replace_colors         = 1" }
+        - { regexp: "inject_css.*", line: "inject_css             = 1" }

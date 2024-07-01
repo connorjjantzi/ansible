@@ -1,0 +1,45 @@
+- hosts: localhost
+  vars:
+    source_key_dir: "./.ssh"
+    dest_key_dir: "{{ ansible_env.HOME }}/.ssh"
+    personal: "{{ ansible_env.HOME }}/personal"
+    gpg_secret: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      66663265313066613833336330303663333137633531363135663238316531633063623861653133
+      3766646563313033386435306461343837383533336462640a653162356235373434373630366464
+      37326366383133666433386638343937333166356537383135633935646431323564623739663834
+      3238373631643461370a626461376538663439616163663637386232336633363662303465663731
+      32376630373562333437383161653833396333643838383264336166363236366336333636373262
+      6638366434306266336161653762323235646363613439333763
+    gpg_email: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      35616639386563386432346432383430616638386464613534616230363334303161633930323463
+      3230386631323131393130316564316262656562393537650a623336656264386430393166303435
+      37376538623762303333353938616466323763636638306165393162343738333633323365646135
+      3232393166363464380a653662373265363566613762646432393162666662326464306236636232
+      36323365373238363863663834626335643561393764623637626563336366353763
+    pre_tasks:
+      - name: Update Packages
+        become: true
+        pacman:
+          upgrade: true
+          update_cache: true
+          state: present
+        tags:
+          - install
+          - core
+  tasks:
+    - ansible.builtin.import_tasks: playbooks/tasks/ssh.yml
+    - ansible.builtin.import_tasks: playbooks/tasks/yay.yml
+    - ansible.builtin.import_tasks: playbooks/tasks/core-setup.yml
+    - ansible.builtin.import_tasks: playbooks/tasks/git-setup.yml
+    - ansible.builtin.import_tasks: playbooks/tasks/zsh-setup.yml
+    - ansible.builtin.import_tasks: playbooks/tasks/node-setup.yml
+    - ansible.builtin.import_tasks: playbooks/tasks/nvim-setup.yml
+    - ansible.builtin.import_tasks: playbooks/tasks/rust-setup.yml
+    - ansible.builtin.import_tasks: playbooks/tasks/dotfiles.yml
+    - ansible.builtin.import_tasks: playbooks/tasks/productivity-tools.yml
+    - ansible.builtin.import_tasks: playbooks/tasks/spotify-setup.yml
+    - ansible.builtin.import_tasks: playbooks/tasks/passwords.yml
+    - ansible.builtin.import_tasks: playbooks/tasks/hyprland-setup.yml
+    - ansible.builtin.import_tasks: playbooks/tasks/install-packages.yml

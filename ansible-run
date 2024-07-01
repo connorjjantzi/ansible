@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+## Install ansible
+sudo pacman -Syu --noconfirm
+sudo pacman -S --noconfirm --needed ansible ansible-core
+ansible-galaxy collection install -r requirements.yml
+
+ansible-playbook local.yml --tags install,passwords --ask-vault-pass
+## pull ansible
+#sudo ansible-pull -U https://github.com/connorjjantzi/ansible.git

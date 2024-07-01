@@ -1,0 +1,17 @@
+- name: Rust setup
+  tags:
+    - install
+    - rust
+  block:
+    - name: Install rust packages
+      become: true
+      pacman:
+        name:
+          - rustup
+          - rust-analyzer
+
+    - name: Install rust stuff
+      ansible.builtin.shell: |
+        rustup default stable
+      args:
+        creates: "{{ ansible_env.HOME }}/.rustup"

@@ -1,0 +1,38 @@
+- name: Node setup
+  tags:
+    - install
+    - node
+  block:
+    - name: Install Node Version Manager
+      kewlfft.aur.aur:
+        name: nvm
+        use: yay
+        state: present
+
+    - name: Source nvm and install Node.js
+      ansible.builtin.shell: |
+        source /usr/share/nvm/init-nvm.sh
+        nvm install node
+      args:
+        creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+
+    - name: Source nvm and use Node.js
+      ansible.builtin.shell: |
+        source /usr/share/nvm/init-nvm.sh
+        nvm use node
+      args:
+        creates: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+
+    - name: Get npm path
+      ansible.builtin.shell: |
+        source /usr/share/nvm/init-nvm.sh
+        dirname $(which npm)
+      register: npm_path
+      changed_when: false
+
+    - name: Install neovim global npm package
+      ansible.builtin.npm:
+        name: neovim
+        global: true
+      environment:
+        PATH: "{{ npm_path.stdout }}:{{ ansible_env.PATH }}"

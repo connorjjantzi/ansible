@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+docker build -t arch-ansible .
+docker run -it --rm --name ansible-test arch-ansible

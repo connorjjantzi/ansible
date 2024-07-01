@@ -1,0 +1,29 @@
+- name: Git personal setup
+  tags:
+    - install
+    - git-personal
+  block:
+    - name: Git personal setup email
+      git_config:
+        name: user.email
+        scope: global
+        value: "jantzijconnor@gmail.com"
+    - name: Git personal setup name
+      git_config:
+        name: user.name
+        scope: global
+        value: "Connor Jantzi"
+- name: Git school setup
+  tags:
+    - git-personal
+  block:
+    - name: Git school setup email
+      git_config:
+        name: user.email
+        scope: global
+        value: "cj5376@rit.edu"
+    - name: Git school setup name
+      git_config:
+        name: user.name
+        scope: global
+        value: "cj5376"
