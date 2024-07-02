@@ -6,6 +6,7 @@
     - node
     - zsh
     - hyprland
+    - productivity
   block:
     - name: Install base-devel and git if needed
       become: true
