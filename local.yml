@@ -43,3 +43,5 @@
     - ansible.builtin.import_tasks: playbooks/tasks/passwords.yml
     - ansible.builtin.import_tasks: playbooks/tasks/hyprland-setup.yml
     - ansible.builtin.import_tasks: playbooks/tasks/install-packages.yml
+    - ansible.builtin.import_tasks: playbooks/tasks/nvidia-setup.yml
+

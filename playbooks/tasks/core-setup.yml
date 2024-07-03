@@ -42,3 +42,18 @@
         path: /etc/pacman.conf
         regexp: "NoProgressBar"
         line: "#NoProgressBar"
+
+    - name: Enable multilib
+      become: true
+      ansible.builtin.replace:
+        path: /etc/pacman.conf
+        regexp: '^#\[multilib\]'
+        replace: "[multilib]"
+        
+    - name: Enable multilib
+      become: true
+      ansible.builtin.replace:
+        path: /etc/pacman.conf
+        regexp: '^#Include = /etc/pacman.d/mirrorlist'
+        replace: "Include = /etc/pacman.d/mirrorlist"
+        after: '\[multilib\]'
