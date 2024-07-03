@@ -3,10 +3,12 @@
     - install
     - dotfiles
   block:
-    - name: Installing stow
+    - name: Installing stow and openssh
       become: true
       pacman:
-        name: stow
+        name: 
+          - stow
+          - openssh
 
     - name: Cloning .dotfiles
       ansible.builtin.git:
