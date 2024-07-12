@@ -28,6 +28,12 @@
         path: /etc/pacman.conf
         regexp: "#CheckSpace"
         line: "CheckSpace"
+    - name: Enable parallel downloads for pacman
+      become: true
+      ansible.builtin.lineinfile:
+        path: /etc/pacman.conf
+        regexp: "#ParallelDownloads = 5"
+        line: "ParallelDownloads = 5"
 
     - name: Add ILoveCandy option to pacman
       become: true
@@ -49,11 +55,17 @@
         path: /etc/pacman.conf
         regexp: '^#\[multilib\]'
         replace: "[multilib]"
-        
+
     - name: Enable multilib
       become: true
       ansible.builtin.replace:
         path: /etc/pacman.conf
-        regexp: '^#Include = /etc/pacman.d/mirrorlist'
+        regexp: "^#Include = /etc/pacman.d/mirrorlist"
         replace: "Include = /etc/pacman.d/mirrorlist"
         after: '\[multilib\]'
+
+    - name: Install multilib database
+      become: true
+      pacman:
+        upgrade: true
+        update_cache: true
