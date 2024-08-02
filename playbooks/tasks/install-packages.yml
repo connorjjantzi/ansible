@@ -5,8 +5,10 @@
   block:
     - name: Install packages
       become: true
-      pacman:
+      kewlfft.aur.aur:
+        use: yay
         name:
+          - github-cli
           - discord
           - kitty
           - firefox
