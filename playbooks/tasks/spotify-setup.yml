@@ -14,7 +14,7 @@
       become: true
       ansible.builtin.lineinfile:
         path: /etc/spotify-launcher.conf
-        regexp: "^platform=wayland$"
+        regexp: ".*platform=wayland.*"
         line: 'extra_arguments = ["--enable-features=UseOzonePlatform", "--ozone-platform=wayland"]'
 
     - name: Install spicetify-cli
