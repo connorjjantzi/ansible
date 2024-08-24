@@ -1,5 +1,6 @@
 - name: Install hyprland
   tags:
+    - install
     - hyprland
   block:
     - name: Install hyprland packages
