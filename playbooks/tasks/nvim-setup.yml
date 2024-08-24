@@ -8,9 +8,10 @@
       pacman:
         name: neovim
 
-    - name: Install packages for LazyVim
+    - name: Install packages for LazyVim and plugins
       become: true
-      pacman:
+      kewlfft.aur.aur:
+        use: yay
         name:
           - ttf-jetbrains-mono-nerd
           - lazygit
@@ -30,6 +31,12 @@
           - lua51
           - python-pipenv
           - python-pynvim
+          - jq
+          - python-pylatexenc
+          - github-cli
+          - biber
+          - texlive-bin
+          - texlive-binextra
 
     - name: Install ueberzugpp
       kewlfft.aur.aur:
