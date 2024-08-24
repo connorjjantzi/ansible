@@ -21,7 +21,7 @@
     pre_tasks:
       - name: Update Packages
         become: true
-        pacman:
+        community.general.pacman:
           upgrade: true
           update_cache: true
           state: present

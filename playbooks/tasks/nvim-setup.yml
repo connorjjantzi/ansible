@@ -5,7 +5,7 @@
   block:
     - name: Install neovim package
       become: true
-      pacman:
+      community.general.pacman:
         name: neovim
 
     - name: Install packages for LazyVim and plugins
@@ -46,7 +46,7 @@
 
     - name: Install languages for Mason
       become: true
-      pacman:
+      community.general.pacman:
         name:
           - luarocks
           - composer

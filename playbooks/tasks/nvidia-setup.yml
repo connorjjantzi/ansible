@@ -4,8 +4,8 @@
   block:
     - name: Install nvidia packages
       become: true
-      pacman:
-        name: 
+      community.general.pacman:
+        name:
           - nvidia
           - nvidia-utils
           - lib32-nvidia-utils

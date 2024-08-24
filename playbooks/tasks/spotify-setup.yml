@@ -5,7 +5,7 @@
   block:
     - name: Install spotify launcher and temporary xorg server
       become: true
-      pacman:
+      community.general.pacman:
         name:
           - spotify-launcher
         state: present
@@ -82,12 +82,12 @@
         line: "{{ item.line }}"
       loop:
         - {
-            regexp: "custom_apps.*",
-            line: "custom_apps           = marketplace|lyrics-plus",
-          }
+          regexp: "custom_apps.*",
+          line: "custom_apps           = marketplace|lyrics-plus",
+        }
         - {
-            regexp: "current_theme.*",
-            line: "current_theme          = marketplace",
-          }
+          regexp: "current_theme.*",
+          line: "current_theme          = marketplace",
+        }
         - { regexp: "replace_colors.*", line: "replace_colors         = 1" }
         - { regexp: "inject_css.*", line: "inject_css             = 1" }

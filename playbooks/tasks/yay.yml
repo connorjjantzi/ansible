@@ -10,7 +10,7 @@
   block:
     - name: Install base-devel and git if needed
       become: true
-      pacman:
+      community.general.pacman:
         update_cache: true
         name:
           - base-devel

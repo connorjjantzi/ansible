@@ -5,8 +5,8 @@
   block:
     - name: Installing stow and openssh
       become: true
-      pacman:
-        name: 
+      community.general.pacman:
+        name:
           - stow
           - openssh
 
