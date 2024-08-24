@@ -1,7 +1,92 @@
-- name: Install Hyde Cli
-  kewlfft.aur.aur:
-    name: hyde-cli-git
-    use: yay
-    state: present
+- name: Install hyprland
   tags:
     - hyprland
+  block:
+    - name: Install hyprland packages
+      kewlfft.aur.aur:
+        name:
+          - hyprland
+          - hyprlock-git
+          - hyprpaper
+          - hyprshade-git
+          - hyprpicker
+          - hypridle
+          - xdg-desktop-portal-hyprland
+          - xdg-desktop-portal-gtk
+
+    - name: Install ags packages
+      kewlfft.aur.aur:
+        use: yay
+        state: present
+        name:
+          - aylurs-gtk-shell
+          - bun-bin
+          - dart-sass
+          - fd
+          - brightnessctl
+          - swww
+          - matugen-bin
+
+    - name: Install optional ags packages
+      kewlfft.aur.aur:
+        use: yay
+        state: present
+        name:
+          - fzf
+          - hyprpicker
+          - slurp
+          # - wf-recorder
+          - wf-recorder-git
+          - wl-clipboard
+          - wayshot
+          # - flameshot
+          - swappy
+          # - asusctl
+          # - supergfxctl
+          - gnome-bluetooth-3.0
+          - gvfs
+
+    - name: Clone folke dots
+      ansible.builtin.git:
+        repo: https://github.com/folke/dot.git
+        dest: "{{ ansible_env.HOME }}/personal/folke-dotfiles"
+        update: true
+        version: master
+
+    - name: Copy ags config
+      ansible.builtin.copy:
+        src: "{{ ansible_env.HOME }}/personal/folke-dotfiles/config/ags"
+        dest: "{{ ansible_env.HOME }}/.config"
+        mode: "0644"
+        force: false
+
+    - name: Install fonts and themes
+      kewlfft.aur.aur:
+        use: yay
+        state: present
+        name:
+          - ttf-maple
+          - inter-font
+          - papirus-icon-theme-git
+
+    - name: Create user units for hyprshade
+      ansible.builtin.command:
+        cmd: "hyprshade install"
+        creates: "{{ ansible_env.HOME }}/.config/systemd/user/hyprshade.timer"
+
+    - name: Enable and start hyprshade timer for the current user
+      ansible.builtin.systemd:
+        name: hyprshade.timer
+        state: started
+        enabled: true
+        scope: user
+
+    - name: Install other packages
+      kewlfft.aur.aur:
+        use: yay
+        state: present
+        name:
+          - wl-clip-persist
+          - wl-clipboard
+          - cliphist
+          - playerctl
