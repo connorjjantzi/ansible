@@ -15,7 +15,6 @@
           - interception-caps2esc # TODO: Add config file at /etc/interception/udevmon.yaml and sudo systemctl enable --now udevmon
           - fastfetch
           - yazi
-          - aws-cli-v2
           - stripe-cli
           - btop
           # - iw # TODO: WIFI setup not sure if needed
@@ -29,6 +28,7 @@
       kewlfft.aur.aur:
         use: yay
         name:
+          - aws-cli-v2
           - lazydocker
 
     - name: Check if TPM folder exists
