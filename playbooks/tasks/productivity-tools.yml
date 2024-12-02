@@ -15,7 +15,6 @@
           - interception-caps2esc # TODO: Add config file at /etc/interception/udevmon.yaml and sudo systemctl enable --now udevmon
           - fastfetch
           - yazi
-          - stripe-cli
           - btop
           # - iw # TODO: WIFI setup not sure if needed
           - terraform
@@ -28,6 +27,7 @@
       kewlfft.aur.aur:
         use: yay
         name:
+          - stripe-cli
           - aws-cli-v2
           - lazydocker
 
