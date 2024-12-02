@@ -12,10 +12,10 @@
       become: true
       community.general.pacman:
         update_cache: true
+        state: present
         name:
           - base-devel
           - git
-        extra_args: --needed
 
     - name: Clone yay repo
       ansible.builtin.git:

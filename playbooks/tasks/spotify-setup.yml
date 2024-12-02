@@ -1,3 +1,4 @@
+# TODO: Fix importing of extensions so I don't have to do it manually (also can't import file from .config/spicetify have to use .dotfiles)
 - name: Spotfiy and spicetify setup
   tags:
     - install
@@ -19,8 +20,9 @@
 
     - name: Install spicetify-cli
       kewlfft.aur.aur:
-        name: spicetify-cli
+        use: yay
         state: present
+        name: spicetify-cli
 
     - name: Run spotify-launcher to install spotify
       ansible.builtin.shell: |

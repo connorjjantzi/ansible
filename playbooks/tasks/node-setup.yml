@@ -5,9 +5,9 @@
   block:
     - name: Install Node Version Manager
       kewlfft.aur.aur:
-        name: nvm
         use: yay
         state: present
+        name: nvm
 
     - name: Source nvm and install Node.js
       ansible.builtin.shell: |

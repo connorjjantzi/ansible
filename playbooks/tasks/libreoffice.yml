@@ -1,0 +1,34 @@
+- name: Libre office install
+  tags:
+    - install
+    - sddm
+  block:
+    - name: Install packages
+      kewlfft.aur.aur:
+        use: yay
+        state: present
+        name:
+          - libreoffice-fresh
+          - hunspell-en_us
+
+    # NOTE: Optional dependencies for libreoffice-fresh
+    # java-runtime: adds java support [installed]
+    # java-environment>=17: required by extension-wiki-publisher and extension-nlpsolver
+    # [installed]
+    # pstoedit: translates PostScript and PDF graphics into other vector formats
+    # libmythes: for use in thesaurus
+    # beanshell: interactive java -- good for prototyping/macros
+    # libwpg: library for importing and converting WordPerfect Graphics format
+    # sane: for scanner access
+    # unixodbc: adds ODBC database support
+    # gst-plugins-base-libs: for multimedia content, e.g. in Impress [installed]
+    # libpaper: takes care of papersize [installed]
+    # postgresql-libs: for postgresql-connector
+    # mariadb-libs: for mysql-connector
+    # coin-or-mp: required by the Calc solver
+    # gtk3: for GTK3 integration [installed]
+    # gtk4: for GTK4 integration (experimental) [installed]
+    # qt5-x11extras: for Qt5 desktop integration [installed]
+    # kio: for KF6 KDE desktop integration
+    # qt6-multimedia: for Qt6 desktop integration
+    # rhino: for JavaScript support

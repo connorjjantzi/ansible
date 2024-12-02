@@ -4,10 +4,19 @@
     - packages
   block:
     - name: Install packages
-      become: true
       kewlfft.aur.aur:
         use: yay
+        state: present
         name:
           - discord
           - kitty
-          - firefox
+          - zen-browser-avx2-bin
+          - obsidian
+          # NOTE: Obsidian
+          #   Optional dependencies for electron30
+          #   kde-cli-tools: file deletion support (kioclient5)
+          #   pipewire: WebRTC desktop sharing under Wayland [installed]
+          #   qt5-base: enable Qt5 with --enable-features=AllowQt [installed]
+          #   gtk4: for --gtk-version=4 (GTK4 IME might work better on Wayland) [installed]
+          #   trash-cli: file deletion support (trash-put)
+          #   xdg-utils: open URLs with desktop’s default (xdg-email, xdg-open) [installed]

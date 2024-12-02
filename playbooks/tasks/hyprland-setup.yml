@@ -5,15 +5,20 @@
   block:
     - name: Install hyprland packages
       kewlfft.aur.aur:
+        use: yay
+        state: present
         name:
           - hyprland
-          - hyprlock-git
+          - hyprlock
           - hyprpaper
           - hyprshade-git
           - hyprpicker
           - hypridle
           - xdg-desktop-portal-hyprland
           - xdg-desktop-portal-gtk
+          - apple-fonts # hyprlock TODO: need to add install for Suisse Int'l Mono and StretchPro
+          - ttf-google-fonts-git # hyprlock fonts
+          - pandoc-cli # md to pdf
 
     - name: Install ags packages
       kewlfft.aur.aur:
@@ -25,8 +30,9 @@
           - dart-sass
           - fd
           - brightnessctl
-          - swww
+          # - swww # don't need, use hyprpaer instaed
           - matugen-bin
+          - bluez-utils
 
     - name: Install optional ags packages
       kewlfft.aur.aur:
@@ -42,24 +48,7 @@
           - wayshot
           # - flameshot
           - swappy
-          # - asusctl
-          # - supergfxctl
-          - gnome-bluetooth-3.0
           - gvfs
-
-    - name: Clone folke dots
-      ansible.builtin.git:
-        repo: https://github.com/folke/dot.git
-        dest: "{{ ansible_env.HOME }}/personal/folke-dotfiles"
-        update: true
-        version: master
-
-    - name: Copy ags config
-      ansible.builtin.copy:
-        src: "{{ ansible_env.HOME }}/personal/folke-dotfiles/config/ags"
-        dest: "{{ ansible_env.HOME }}/.config"
-        mode: "0644"
-        force: false
 
     - name: Install fonts and themes
       kewlfft.aur.aur:
@@ -91,3 +80,45 @@
           - wl-clipboard
           - cliphist
           - playerctl
+          # - dunst
+          - pipewire
+          - wireplumber
+          # - polkit-kde-agent
+          - polkit-gnome
+          - qt5-wayland
+          - qt6-wayland
+          # - kwayland5
+          - qt5-x11extras
+          - usbutils
+          - nwg-look
+          - btrfs-progs
+          - timeshift
+          - xorg-xhost
+          - grub-btrfs
+          - inotify-tools
+          - grim
+
+    - name: Enable and start cronie service
+      ansible.builtin.systemd:
+        name: cronie.service
+        state: started
+        enabled: true
+
+    # NOTE: Need to run `# systemctl edit --full grub-btrfsd` and `replace grub-btrfsd --syslog /.snapshots with grub-btrfsd --syslog -t` SEE: https://wiki.archlinux.org/title/Timeshift
+    - name: Enable and start GRUB btrfs service
+      ansible.builtin.systemd:
+        name: grub-btrfsd.service
+        enabled: true
+
+    # NOTE: Not sure where to put this
+    - name: Add emojis
+      kewlfft.aur.aur:
+        use: yay
+        state: present
+        name:
+          - noto-fonts-emoji
+
+    # NOTE: Install sugar-dark and [Theme]
+    #                              Current=sugar-dark
+    # to /etc/sddm.conf
+    # also set ForceHideCompletePassword=true

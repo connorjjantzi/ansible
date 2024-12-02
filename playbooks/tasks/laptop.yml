@@ -1,0 +1,66 @@
+- name: Do laptop stuff
+  tags:
+    - laptop
+  block:
+    - name: Install packages
+      kewlfft.aur.aur:
+        use: yay
+        name:
+          - asusctl
+          - supergfxctl
+          - power-profiles-daemon
+          - python-gobject
+          - gnome-bluetooth-3.0
+          - pipewire-pulse
+          # - python-libevdev
+          # - python-pyudev
+
+    - name: Start asusd service
+      ansible.builtin.systemd:
+        name: asusd.service
+        state: started
+
+    - name: Start supergfxctl service
+      ansible.builtin.systemd:
+        name: supergfxctl
+        state: started
+        enabled: true
+
+    - name: Enable bluetooth experimental
+      become: true
+      ansible.builtin.lineinfile:
+        path: /etc/bluetooth/main.conf
+        regexp: "#Experimental = false"
+        line: "Experimental = true"
+
+    - name: Start and enable bluetooth service
+      ansible.builtin.systemd:
+        name: bluetooth.service
+        state: started
+        enabled: true
+
+    # # NOTE: for getting bluetooth mac address https://wiki.archlinux.org/title/Bluetooth
+    # - name: Not sure if I need this
+    #   kewlfft.aur.aur:
+    #     use: yay
+    #     state: present
+    #     name:
+    #       - chntpw
+    #       - ntfs-3g
+    #       - blueman
+    #       - bt-dualboot
+
+    # - name: Fingerprint scanner
+    #   kewlfft.aur.aur:
+    #     use: yay
+    #     state: present
+    #     name:
+    #       - fprintd
+        #
+    - name: RIT wifi
+      kewlfft.aur.aur:
+        use: yay
+        name:
+          - python-dbus
+
+    # TODO: redo grub-mkonfig so that it detects windows

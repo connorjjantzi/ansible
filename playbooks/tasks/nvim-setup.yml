@@ -9,9 +9,9 @@
         name: neovim
 
     - name: Install packages for LazyVim and plugins
-      become: true
       kewlfft.aur.aur:
         use: yay
+        state: present
         name:
           - ttf-jetbrains-mono-nerd
           - lazygit
@@ -37,12 +37,14 @@
           - biber
           - texlive-bin
           - texlive-binextra
+          - texlive-latex
+          - tree-sitter-cli
 
     - name: Install ueberzugpp
       kewlfft.aur.aur:
-        name: ueberzugpp
         use: yay
         state: present
+        name: ueberzugpp
 
     - name: Install languages for Mason
       become: true

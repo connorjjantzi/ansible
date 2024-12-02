@@ -1,0 +1,26 @@
+- name: Docker setup
+  tags:
+    - install
+    - docker
+  block:
+    - name: Install docker package
+      kewlfft.aur.aur:
+        use: yay
+        state: present
+        name:
+          - docker
+          - docker-buildx
+          - docker-compose
+
+    - name: Enable and start docker.socket
+      ansible.builtin.systemd:
+        name: docker.socket
+        state: started
+        enabled: true
+
+    - name: Add user to the docker user group
+      ansible.builtin.user:
+        name: "{{ ansible_user_id }}"
+        groups:
+          - docker
+        append: true

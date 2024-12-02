@@ -1,0 +1,40 @@
+- name: Sddm stuff
+  tags:
+    - install
+    - sddm
+  block:
+    - name: Install packages
+      kewlfft.aur.aur:
+        use: yay
+        state: present
+        name:
+          - ttf-roboto-mono
+          - qt5-graphicaleffects
+          - qt5-quickcontrols2
+          - qt5-svg
+          - sddm
+
+    # NOTE: Flower theme github https://github.com/Keyitdev/sddm-flower-theme
+    # Clone to /usr/share/sddm/themes/sddm-flower-theme
+    # Edit /etc/sddm.conf
+    # Current=sddm-flower-theme
+    # Edit /usr/share/sddm/themes/sddm-flower-theme/theme.conf
+    # Set ScreenWidth="1920" and ScreenHeight="1080"
+    # Hour format HourFormat="h:mm A"
+    # Date format DateFormat="ddd MMMM d yy"
+
+    # TODO: gtk themes https://github.com/Fausto-Korpsvart/Tokyonight-GTK-Theme
+    # AUR Tokyonight-gtk-theme-git (don't work)
+    # Clone repo
+    # Run ./install.sh --tweaks moon -c dark
+    # Work for timeshift
+    # sudo cp -r ~/.themes /root/.themes
+    # sudo cp -r ~/.config/gtk-3.0 /root/.config/gtk-3.0
+    # sudo pacman -S gtk-engine-murrine
+    # sudo cp -r ~/personal/Tokyonight-GTK-Theme/icons ~/.icons
+
+    # TODO: cursor theme https://github.com/ndom91/rose-pine-hyprcursor
+    # bibata https://github.com/ful1e5/Bibata_Cursor?tab=readme-ov-file
+    # bibata hypr https://github.com/LOSEARDES77/Bibata-Cursor-hyprcursor/
+    # yay -S rose-pine-hyprcursor
+    # yay -S bibata-cursor-theme-bin

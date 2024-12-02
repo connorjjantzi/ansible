@@ -1,0 +1,19 @@
+- name: Grub stuff
+  tags:
+    - install
+    - grub
+  block:
+    - name: Get monitor resolution
+      ansible.builtin.command:
+        cmd: "xrandr | grep '*' | awk '{print $1}' | sort --numeric-sort --reverse | head -1"
+      register: resolution
+
+
+      # TODO:
+      # Download theme https://github.com/semimqmo/sekiro_grub_theme
+      # Copy theme to /boot/grub/themes/Sekiro
+      # Edit /etc/default/grub line GRUB_THEME="/boot/grub/themes/Sekiro/theme.txt"
+      # To use 1440p edit desktop-image to sekiro_2560x1440.png in theme.txt
+      # grub-mkconfig -o /boot/grub/grub.cfg
+
+      # TODO: add nwg-look or ~/.config/gtk-3.0/settings.ini for prefer dark
