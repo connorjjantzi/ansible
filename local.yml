@@ -44,4 +44,8 @@
     - ansible.builtin.import_tasks: playbooks/tasks/hyprland-setup.yml
     - ansible.builtin.import_tasks: playbooks/tasks/install-packages.yml
     - ansible.builtin.import_tasks: playbooks/tasks/nvidia-setup.yml
-
+    - ansible.builtin.import_tasks: playbooks/tasks/sddm.yml
+    - ansible.builtin.import_tasks: playbooks/tasks/laptop.yml
+    - ansible.builtin.import_tasks: playbooks/tasks/libreoffice.yml
+    - ansible.builtin.import_tasks: playbooks/tasks/docker.yml
+    - ansible.builtin.import_tasks: playbooks/tasks/grub.yml
