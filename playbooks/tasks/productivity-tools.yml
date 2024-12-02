@@ -18,7 +18,6 @@
           - btop
           # - iw # TODO: WIFI setup not sure if needed
           - terraform
-          - vscode-codicons-git # VSCode font for clangd_extensions.nvim
           - bear # Used for Makefile to get compile_commands.json
           - imagemagick # Image manipulation
           - gimp
@@ -27,6 +26,7 @@
       kewlfft.aur.aur:
         use: yay
         name:
+          - vscode-codicons-git # VSCode font for clangd_extensions.nvim
           - stripe-cli
           - aws-cli-v2
           - lazydocker
