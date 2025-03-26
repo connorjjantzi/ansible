@@ -12,7 +12,6 @@
           - tldr
           - man-db
           - eza
-          - interception-caps2esc # TODO: Add config file at /etc/interception/udevmon.yaml and sudo systemctl enable --now udevmon
           - fastfetch
           - yazi
           - btop

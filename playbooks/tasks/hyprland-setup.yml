@@ -25,6 +25,8 @@
         use: yay
         state: present
         name:
+          - gnome-bluetooth-3.0 # bluetooth
+          - power-profiles-daemon # laptop power profiles #FIX: Need to start/enable power-profiles-daemon
           - aylurs-gtk-shell
           - bun-bin
           - dart-sass
@@ -59,6 +61,7 @@
           - inter-font
           - papirus-icon-theme-git
 
+    # FIX: need hypr config stow first
     - name: Create user units for hyprshade
       ansible.builtin.command:
         cmd: "hyprshade install"
@@ -98,12 +101,14 @@
           - inotify-tools
           - grim
 
+    # FIX: Interactable auth required
     - name: Enable and start cronie service
       ansible.builtin.systemd:
         name: cronie.service
         state: started
         enabled: true
 
+    # FIX: Interactable auth required
     # NOTE: Need to run `# systemctl edit --full grub-btrfsd` and `replace grub-btrfsd --syslog /.snapshots with grub-btrfsd --syslog -t` SEE: https://wiki.archlinux.org/title/Timeshift
     - name: Enable and start GRUB btrfs service
       ansible.builtin.systemd:

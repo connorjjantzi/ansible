@@ -1,7 +1,7 @@
 - name: Libre office install
   tags:
     - install
-    - sddm
+    - libre
   block:
     - name: Install packages
       kewlfft.aur.aur:

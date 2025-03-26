@@ -18,6 +18,7 @@
         state: started
         enabled: true
 
+    #NOTE: usermod: Permission denied
     - name: Add user to the docker user group
       ansible.builtin.user:
         name: "{{ ansible_user_id }}"

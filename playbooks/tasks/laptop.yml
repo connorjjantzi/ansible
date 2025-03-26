@@ -20,9 +20,9 @@
         name: asusd.service
         state: started
 
-    - name: Start supergfxctl service
+    - name: Start supergfxd service
       ansible.builtin.systemd:
-        name: supergfxctl
+        name: supergfxd
         state: started
         enabled: true
 
