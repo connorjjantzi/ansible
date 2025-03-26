@@ -3,16 +3,12 @@
     - install
     - nvim
   block:
-    - name: Install neovim package
-      become: true
-      community.general.pacman:
-        name: neovim
-
-    - name: Install packages for LazyVim and plugins
+    - name: Install neovim and packages for LazyVim and plugins
       kewlfft.aur.aur:
         use: yay
         state: present
         name:
+          - neovim-git
           - ttf-jetbrains-mono-nerd
           - lazygit
           - ripgrep
@@ -27,7 +23,6 @@
           - wget
           - unzip
           - xdg-utils
-          # - wl-clipboard
           - lua51
           - python-pipenv
           - python-pynvim
