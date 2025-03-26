@@ -20,6 +20,6 @@
         version: main
 
     - name: Stow dotfiles
-      ansible.builtin.shell: cd $HOME/.dotfiles && stow kitty nvim ohmyposh scripts tmux zsh spicetify ags
+      ansible.builtin.shell: cd $HOME/.dotfiles && stow kitty nvim ohmyposh scripts tmux zsh spicetify ags hyprpanel ghostty
       # FIX: hypr needs to be stowed but it already is created on install of hyprland
       # don't want to add --adopt because it could ovewrite my configs
