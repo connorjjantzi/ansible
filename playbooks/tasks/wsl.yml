@@ -1,0 +1,18 @@
+- name: Install win32yank for clipboard syncing on ArchWSL
+  tags:
+    - wsl
+  block:
+    - name: Download win32yank.exe from GitHub
+      become: true
+      ansible.builtin.get_url:
+        url: "https://github.com/equalsraf/win32yank/releases/latest/download/win32yank.exe"
+        dest: "/usr/local/bin/win32yank.exe"
+        mode: "0755"
+        force: true
+
+    - name: Ensure win32yank.exe is executable
+      become: true
+      ansible.builtin.file:
+        path: "/usr/local/bin/win32yank.exe"
+        mode: "0755"
+        state: file
