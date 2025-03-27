@@ -3,6 +3,7 @@
     - install
     - dotfiles
     - ssh
+    - wsl
   block:
     - name: Ensure the local .ssh directory exists
       ansible.builtin.file:

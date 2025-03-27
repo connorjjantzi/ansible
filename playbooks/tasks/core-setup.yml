@@ -2,6 +2,7 @@
   tags:
     - install
     - arch
+    - wsl
   block:
     - name: Create work, personal, and school directories
       ansible.builtin.file:

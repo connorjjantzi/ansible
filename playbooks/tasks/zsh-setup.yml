@@ -4,6 +4,7 @@
     - productivity
     - dotfiles
     - zsh
+    - wsl
   block:
     - name: Install ZSH
       become: true

@@ -7,6 +7,7 @@
     - zsh
     - hyprland
     - productivity
+    - wsl
   block:
     - name: Install base-devel and git if needed
       become: true

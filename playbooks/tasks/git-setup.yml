@@ -2,6 +2,7 @@
   tags:
     - install
     - git-personal
+    - wsl
   block:
     - name: Git personal setup email
       community.general.git_config:

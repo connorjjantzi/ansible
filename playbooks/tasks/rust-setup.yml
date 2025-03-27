@@ -2,6 +2,7 @@
   tags:
     - install
     - rust
+    - wsl
   block:
     - name: Install rust packages
       become: true

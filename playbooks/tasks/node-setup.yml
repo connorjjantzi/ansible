@@ -2,6 +2,7 @@
   tags:
     - install
     - node
+    - wsl
   block:
     - name: Install Node Version Manager
       kewlfft.aur.aur:

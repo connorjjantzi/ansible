@@ -2,6 +2,7 @@
   tags:
     - install
     - dotfiles
+    - wsl
   block:
     - name: Installing stow and openssh
       become: true

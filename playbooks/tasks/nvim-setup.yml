@@ -2,6 +2,7 @@
   tags:
     - install
     - nvim
+    - wsl
   block:
     - name: Install neovim and packages for LazyVim and plugins
       kewlfft.aur.aur:
